@@ -1,3 +1,3 @@
 make Makefile all
 
-./bin/myfind $1
+./myfind $1
