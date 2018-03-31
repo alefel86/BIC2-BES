@@ -27,6 +27,7 @@
 <h1>myfind.c File Reference</h1><code>#include &lt;stdio.h&gt;</code><br/>
 <code>#include &lt;stdlib.h&gt;</code><br/>
 <code>#include &lt;string.h&gt;</code><br/>
+<code>#include &lt;stdbool.h&gt;</code><br/>
 <code>#include &lt;errno.h&gt;</code><br/>
 <code>#include &lt;assert.h&gt;</code><br/>
 <code>#include &lt;dirent.h&gt;</code><br/>
@@ -43,15 +44,39 @@ Include dependency graph for myfind.c:</div>
 <p><a href="myfind_8c_source.html">Go to the source code of this file.</a></p>
 <table border="0" cellpadding="0" cellspacing="0">
 <tr><td colspan="2"><h2>Classes</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="structArgs.html">Args</a></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The command line arguments provided to the application at startup.  <a href="structArgs.html#_details">More...</a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">struct &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFileNode.html">FileNode</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">A single node in the linked list of file names.  <a href="structFileNode.html#_details">More...</a><br/></td></tr>
+<tr><td colspan="2"><h2>Enumerations</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">enum &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="myfind_8c.html#a9f19b10fbbb0e568c31ed76e6e010d2a">FileTypes</a> { <br/>
+&nbsp;&nbsp;<a class="el" href="myfind_8c.html#a9f19b10fbbb0e568c31ed76e6e010d2aac9d3e887722f2bc482bcca9d41c512af">None</a> =  0, 
+<a class="el" href="myfind_8c.html#a9f19b10fbbb0e568c31ed76e6e010d2aa5b6c0b658460f22644894603c0ec8e76">BlockSpecialFile</a> =  1 &lt;&lt; 0, 
+<a class="el" href="myfind_8c.html#a9f19b10fbbb0e568c31ed76e6e010d2aaf00f0abb3a919f25b55ad376f6832b13">CharacterSpecialFile</a> =  1 &lt;&lt; 1, 
+<a class="el" href="myfind_8c.html#a9f19b10fbbb0e568c31ed76e6e010d2aa020739f6b88f409cc7099aca290236f0">Directory</a> =  1 &lt;&lt; 2, 
+<br/>
+&nbsp;&nbsp;<a class="el" href="myfind_8c.html#a9f19b10fbbb0e568c31ed76e6e010d2aa2aa3ab54a0ee83f46a0bd74dedb15d82">NamedPipe</a> =  1 &lt;&lt; 3, 
+<a class="el" href="myfind_8c.html#a9f19b10fbbb0e568c31ed76e6e010d2aa39cfe32122d7c9199b8957f2e0d66084">RegularFile</a> =  1 &lt;&lt; 4, 
+<a class="el" href="myfind_8c.html#a9f19b10fbbb0e568c31ed76e6e010d2aa7d342d0b6930e13bacf3a25f29a40707">SymbolicLink</a> =  1 &lt;&lt; 5, 
+<a class="el" href="myfind_8c.html#a9f19b10fbbb0e568c31ed76e6e010d2aac39207bbda0d1b98dc89636a45d61221">Socket</a> =  1 &lt;&lt; 6
+<br/>
+ }</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><p>Contains flags indicating the file types to be printed in the application's output. </p>
+ <a href="myfind_8c.html#a9f19b10fbbb0e568c31ed76e6e010d2a">More...</a><br/></td></tr>
 <tr><td colspan="2"><h2>Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="myfind_8c.html#aade37ec9282827513333c8cfa97e274e">do_file</a> (const char *file_name, const char *const parms[])</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="myfind_8c.html#a4f1024f98855ee28b277bb4cae2b6497">do_dir</a> (const char *dir_name, const char *const parms[])</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="myfind_8c.html#ae0d97f0f68eee67d41a0fe23235f094e">CombinePath</a> (const char *path1, const char *path2)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="myfind_8c.html#a2b36587cf3a823b02fd4ee0cee1f8ff3">PrintFileInformation</a> (const char *filePath, const struct stat *fileInformation, const char *const parms[])</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="myfind_8c.html#a64d28f49232d9fada3edd46309ab6830">PrintUsage</a> ()</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Prints an explanation of the application's command line arguments.  <a href="#a64d28f49232d9fada3edd46309ab6830"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="myfind_8c.html#a0b4d0c8e58784f7ebc5d043bc7bf73c3">ParseCommandLineArgs</a> (char *argv[], struct <a class="el" href="structArgs.html">Args</a> *args)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="myfind_8c.html#ac179ca7870de8d400956983e2c1d561f">ConvertToInteger</a> (char *s, int *i)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="myfind_8c.html#a139abea48bdd3c9c6fe63123c94385c8">QueryUserID</a> (char *userName, int *userID)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="myfind_8c.html#abfc043dec2db7c13ef52d90189785e71">ParseFileTypes</a> (char *fileTypeChars, enum <a class="el" href="myfind_8c.html#a9f19b10fbbb0e568c31ed76e6e010d2a">FileTypes</a> *fileTypes)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="myfind_8c.html#a162ee12cbbf9ba3d9c704ab855bf31cb">SearchFile</a> (char *file_name, struct <a class="el" href="structArgs.html">Args</a> *args)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="myfind_8c.html#a7719e6aef2cae1850093bd6202c75f3f">SearchDirectory</a> (char *dir_name, struct <a class="el" href="structArgs.html">Args</a> *args)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="myfind_8c.html#a437b3d5c7eefce78114dd13d95ffcc67">CombinePath</a> (char *path1, char *path2)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structFileNode.html">FileNode</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="myfind_8c.html#ac5369c14077eac1063584e19b28eed5e">AddListNode</a> (struct <a class="el" href="structFileNode.html">FileNode</a> **head, char *fileName)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="myfind_8c.html#ac92ffb839309efa55f28cb9005f0c28e">FreeList</a> (struct <a class="el" href="structFileNode.html">FileNode</a> **head)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="myfind_8c.html#a99d91e9ba9de271d7a95daf695d46544">ShouldPrintFileInformation</a> (char *filePath, struct stat *fileInformation, struct <a class="el" href="structArgs.html">Args</a> *args)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="myfind_8c.html#abbd097912373f8e24879f541f3a0d395">PrintFileInformation</a> (char *filePath, struct stat *fileInformation, struct <a class="el" href="structArgs.html">Args</a> *args)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="myfind_8c.html#a0ddf1224851353fc92bfbff6f499fa97">main</a> (int argc, char *argv[])</td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
@@ -61,10 +86,53 @@ Include dependency graph for myfind.c:</div>
 Thomas Haberl &lt;<a href="mailto:ic17b021@technikum-wien.at">ic17b021@technikum-wien.at</a>&gt; </dd>
 <dd>
 Michael Zajac &lt;<a href="mailto:ic17b088@technikum-wien.at">ic17b088@technikum-wien.at</a>&gt;</dd></dl>
-<dl class="date"><dt><b>Date:</b></dt><dd>2018-03-19</dd></dl>
-<dl class="version"><dt><b>Version:</b></dt><dd>0.1 </dd></dl>
+<dl class="date"><dt><b>Date:</b></dt><dd>2018-03-31 </dd></dl>
 
 <p>Definition in file <a class="el" href="myfind_8c_source.html">myfind.c</a>.</p>
+<hr/><h2>Enumeration Type Documentation</h2>
+<a class="anchor" id="a9f19b10fbbb0e568c31ed76e6e010d2a"></a><!-- doxytag: member="myfind.c::FileTypes" ref="a9f19b10fbbb0e568c31ed76e6e010d2a" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="myfind_8c.html#a9f19b10fbbb0e568c31ed76e6e010d2a">FileTypes</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<dl><dt><b>Enumerator: </b></dt><dd><table border="0" cellspacing="2" cellpadding="0">
+<tr><td valign="top"><em><a class="anchor" id="a9f19b10fbbb0e568c31ed76e6e010d2aac9d3e887722f2bc482bcca9d41c512af"></a><!-- doxytag: member="None" ref="a9f19b10fbbb0e568c31ed76e6e010d2aac9d3e887722f2bc482bcca9d41c512af" args="" -->None</em>&nbsp;</td><td>
+<p>No filtering by file type. </p>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="a9f19b10fbbb0e568c31ed76e6e010d2aa5b6c0b658460f22644894603c0ec8e76"></a><!-- doxytag: member="BlockSpecialFile" ref="a9f19b10fbbb0e568c31ed76e6e010d2aa5b6c0b658460f22644894603c0ec8e76" args="" -->BlockSpecialFile</em>&nbsp;</td><td>
+<p>Block special files should be printed. </p>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="a9f19b10fbbb0e568c31ed76e6e010d2aaf00f0abb3a919f25b55ad376f6832b13"></a><!-- doxytag: member="CharacterSpecialFile" ref="a9f19b10fbbb0e568c31ed76e6e010d2aaf00f0abb3a919f25b55ad376f6832b13" args="" -->CharacterSpecialFile</em>&nbsp;</td><td>
+<p>Character special files should be printed. </p>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="a9f19b10fbbb0e568c31ed76e6e010d2aa020739f6b88f409cc7099aca290236f0"></a><!-- doxytag: member="Directory" ref="a9f19b10fbbb0e568c31ed76e6e010d2aa020739f6b88f409cc7099aca290236f0" args="" -->Directory</em>&nbsp;</td><td>
+<p>Directories should be printed. </p>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="a9f19b10fbbb0e568c31ed76e6e010d2aa2aa3ab54a0ee83f46a0bd74dedb15d82"></a><!-- doxytag: member="NamedPipe" ref="a9f19b10fbbb0e568c31ed76e6e010d2aa2aa3ab54a0ee83f46a0bd74dedb15d82" args="" -->NamedPipe</em>&nbsp;</td><td>
+<p>Named pipes should be printed. </p>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="a9f19b10fbbb0e568c31ed76e6e010d2aa39cfe32122d7c9199b8957f2e0d66084"></a><!-- doxytag: member="RegularFile" ref="a9f19b10fbbb0e568c31ed76e6e010d2aa39cfe32122d7c9199b8957f2e0d66084" args="" -->RegularFile</em>&nbsp;</td><td>
+<p>Regular files should be printed. </p>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="a9f19b10fbbb0e568c31ed76e6e010d2aa7d342d0b6930e13bacf3a25f29a40707"></a><!-- doxytag: member="SymbolicLink" ref="a9f19b10fbbb0e568c31ed76e6e010d2aa7d342d0b6930e13bacf3a25f29a40707" args="" -->SymbolicLink</em>&nbsp;</td><td>
+<p>Symbolic links should be printed. </p>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="a9f19b10fbbb0e568c31ed76e6e010d2aac39207bbda0d1b98dc89636a45d61221"></a><!-- doxytag: member="Socket" ref="a9f19b10fbbb0e568c31ed76e6e010d2aac39207bbda0d1b98dc89636a45d61221" args="" -->Socket</em>&nbsp;</td><td>
+<p>Sockets should be printed. </p>
+</td></tr>
+</table>
+</dd>
+</dl>
+
+<p>Definition at line <a class="el" href="myfind_8c_source.html#l00029">29</a> of file <a class="el" href="myfind_8c_source.html">myfind.c</a>.</p>
+
+</div>
+</div>
 <hr/><h2>Function Documentation</h2>
 <a class="anchor" id="ac5369c14077eac1063584e19b28eed5e"></a><!-- doxytag: member="myfind.c::AddListNode" ref="ac5369c14077eac1063584e19b28eed5e" args="(struct FileNode **head, char *fileName)" -->
 <div class="memitem">
@@ -100,28 +168,28 @@ Michael Zajac &lt;<a href="mailto:ic17b088@technikum-wien.at">ic17b088@technikum
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>The created file node. </dd></dl>
 
-<p>Definition at line <a class="el" href="myfind_8c_source.html#l00323">323</a> of file <a class="el" href="myfind_8c_source.html">myfind.c</a>.</p>
+<p>Definition at line <a class="el" href="myfind_8c_source.html#l00602">602</a> of file <a class="el" href="myfind_8c_source.html">myfind.c</a>.</p>
 
-<p>References <a class="el" href="myfind_8c_source.html#l00033">FileNode::fileName</a>, and <a class="el" href="myfind_8c_source.html#l00036">FileNode::next</a>.</p>
+<p>References <a class="el" href="myfind_8c_source.html#l00087">FileNode::fileName</a>, and <a class="el" href="myfind_8c_source.html#l00090">FileNode::next</a>.</p>
 
-<p>Referenced by <a class="el" href="myfind_8c_source.html#l00101">do_dir()</a>.</p>
+<p>Referenced by <a class="el" href="myfind_8c_source.html#l00437">SearchDirectory()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="ae0d97f0f68eee67d41a0fe23235f094e"></a><!-- doxytag: member="myfind.c::CombinePath" ref="ae0d97f0f68eee67d41a0fe23235f094e" args="(const char *path1, const char *path2)" -->
+<a class="anchor" id="a437b3d5c7eefce78114dd13d95ffcc67"></a><!-- doxytag: member="myfind.c::CombinePath" ref="a437b3d5c7eefce78114dd13d95ffcc67" args="(char *path1, char *path2)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">char * CombinePath </td>
           <td>(</td>
-          <td class="paramtype">const char *&nbsp;</td>
+          <td class="paramtype">char *&nbsp;</td>
           <td class="paramname"> <em>path1</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const char *&nbsp;</td>
+          <td class="paramtype">char *&nbsp;</td>
           <td class="paramname"> <em>path2</em></td><td>&nbsp;</td>
         </tr>
         <tr>
@@ -142,27 +210,27 @@ Michael Zajac &lt;<a href="mailto:ic17b088@technikum-wien.at">ic17b088@technikum
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>The combined path as a newly allocated string, which needs to be released with free(). </dd></dl>
 
-<p>Definition at line <a class="el" href="myfind_8c_source.html#l00211">211</a> of file <a class="el" href="myfind_8c_source.html">myfind.c</a>.</p>
+<p>Definition at line <a class="el" href="myfind_8c_source.html#l00535">535</a> of file <a class="el" href="myfind_8c_source.html">myfind.c</a>.</p>
 
-<p>Referenced by <a class="el" href="myfind_8c_source.html#l00101">do_dir()</a>.</p>
+<p>Referenced by <a class="el" href="myfind_8c_source.html#l00437">SearchDirectory()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a4f1024f98855ee28b277bb4cae2b6497"></a><!-- doxytag: member="myfind.c::do_dir" ref="a4f1024f98855ee28b277bb4cae2b6497" args="(const char *dir_name, const char *const parms[])" -->
+<a class="anchor" id="ac179ca7870de8d400956983e2c1d561f"></a><!-- doxytag: member="myfind.c::ConvertToInteger" ref="ac179ca7870de8d400956983e2c1d561f" args="(char *s, int *i)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void do_dir </td>
+          <td class="memname">bool ConvertToInteger </td>
           <td>(</td>
-          <td class="paramtype">const char *&nbsp;</td>
-          <td class="paramname"> <em>dir_name</em>, </td>
+          <td class="paramtype">char *&nbsp;</td>
+          <td class="paramname"> <em>s</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const char *const &nbsp;</td>
-          <td class="paramname"> <em>parms</em>[]</td><td>&nbsp;</td>
+          <td class="paramtype">int *&nbsp;</td>
+          <td class="paramname"> <em>i</em></td><td>&nbsp;</td>
         </tr>
         <tr>
           <td></td>
@@ -172,79 +240,19 @@ Michael Zajac &lt;<a href="mailto:ic17b088@technikum-wien.at">ic17b088@technikum
       </table>
 </div>
 <div class="memdoc">
-<p>Enumerates the files and directories below the specified directory path and prints the information of each entry according to the actions specified in parms. </p>
+<p>Converts the provided string to an integer. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>dir_name</em>&nbsp;</td><td>The path of the directory to process. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>parms</em>&nbsp;</td><td>The array of command line arguments representing the actions used for printing the information of each file or directory entry. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>s</em>&nbsp;</td><td>The string to convert to an integer. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>i</em>&nbsp;</td><td>A pointer to the integer value in which to store the converted string. </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>true if the string could successfully be converted to an integer value. Otherwise, false. </dd></dl>
 
-<p>Definition at line <a class="el" href="myfind_8c_source.html#l00101">101</a> of file <a class="el" href="myfind_8c_source.html">myfind.c</a>.</p>
+<p>Definition at line <a class="el" href="myfind_8c_source.html#l00383">383</a> of file <a class="el" href="myfind_8c_source.html">myfind.c</a>.</p>
 
-<p>References <a class="el" href="myfind_8c_source.html#l00323">AddListNode()</a>, <a class="el" href="myfind_8c_source.html#l00211">CombinePath()</a>, <a class="el" href="myfind_8c_source.html#l00074">do_file()</a>, <a class="el" href="myfind_8c_source.html#l00033">FileNode::fileName</a>, <a class="el" href="myfind_8c_source.html#l00359">FreeList()</a>, and <a class="el" href="myfind_8c_source.html#l00036">FileNode::next</a>.</p>
-
-<p>Referenced by <a class="el" href="myfind_8c_source.html#l00074">do_file()</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dynsection">
-<div class="center"><img src="myfind_8c_a4f1024f98855ee28b277bb4cae2b6497_cgraph.png" border="0" usemap="#myfind_8c_a4f1024f98855ee28b277bb4cae2b6497_cgraph_map" alt=""></div>
-<map name="myfind_8c_a4f1024f98855ee28b277bb4cae2b6497_cgraph_map" id="myfind_8c_a4f1024f98855ee28b277bb4cae2b6497_cgraph">
-<area shape="rect" id="node3" href="myfind_8c.html#ac5369c14077eac1063584e19b28eed5e" title="AddListNode" alt="" coords="115,5,211,35"/><area shape="rect" id="node5" href="myfind_8c.html#ae0d97f0f68eee67d41a0fe23235f094e" title="CombinePath" alt="" coords="112,59,213,88"/><area shape="rect" id="node7" href="myfind_8c.html#aade37ec9282827513333c8cfa97e274e" title="do_file" alt="" coords="133,112,192,141"/><area shape="rect" id="node12" href="myfind_8c.html#ac92ffb839309efa55f28cb9005f0c28e" title="FreeList" alt="" coords="128,165,197,195"/><area shape="rect" id="node10" href="myfind_8c.html#a2b36587cf3a823b02fd4ee0cee1f8ff3" title="PrintFileInformation" alt="" coords="263,112,396,141"/></map>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="aade37ec9282827513333c8cfa97e274e"></a><!-- doxytag: member="myfind.c::do_file" ref="aade37ec9282827513333c8cfa97e274e" args="(const char *file_name, const char *const parms[])" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void do_file </td>
-          <td>(</td>
-          <td class="paramtype">const char *&nbsp;</td>
-          <td class="paramname"> <em>file_name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const char *const &nbsp;</td>
-          <td class="paramname"> <em>parms</em>[]</td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-<p>Recursively walks through all the files and directories below the specified path and prints the information of each entry according to the actions specified in parms. </p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>file_name</em>&nbsp;</td><td>The path of the file or directory to process. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>parms</em>&nbsp;</td><td>The array of command line arguments representing the actions used for printing the information of each file or directory entry. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="myfind_8c_source.html#l00074">74</a> of file <a class="el" href="myfind_8c_source.html">myfind.c</a>.</p>
-
-<p>References <a class="el" href="myfind_8c_source.html#l00101">do_dir()</a>, and <a class="el" href="myfind_8c_source.html#l00278">PrintFileInformation()</a>.</p>
-
-<p>Referenced by <a class="el" href="myfind_8c_source.html#l00101">do_dir()</a>, and <a class="el" href="myfind_8c_source.html#l00056">main()</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dynsection">
-<div class="center"><img src="myfind_8c_aade37ec9282827513333c8cfa97e274e_cgraph.png" border="0" usemap="#myfind_8c_aade37ec9282827513333c8cfa97e274e_cgraph_map" alt=""></div>
-<map name="myfind_8c_aade37ec9282827513333c8cfa97e274e_cgraph_map" id="myfind_8c_aade37ec9282827513333c8cfa97e274e_cgraph">
-<area shape="rect" id="node3" href="myfind_8c.html#a4f1024f98855ee28b277bb4cae2b6497" title="do_dir" alt="" coords="155,59,211,88"/><area shape="rect" id="node12" href="myfind_8c.html#a2b36587cf3a823b02fd4ee0cee1f8ff3" title="PrintFileInformation" alt="" coords="116,112,249,141"/><area shape="rect" id="node5" href="myfind_8c.html#ac5369c14077eac1063584e19b28eed5e" title="AddListNode" alt="" coords="301,5,397,35"/><area shape="rect" id="node7" href="myfind_8c.html#ae0d97f0f68eee67d41a0fe23235f094e" title="CombinePath" alt="" coords="299,59,400,88"/><area shape="rect" id="node10" href="myfind_8c.html#ac92ffb839309efa55f28cb9005f0c28e" title="FreeList" alt="" coords="315,112,384,141"/></map>
-</div>
-</p>
+<p>Referenced by <a class="el" href="myfind_8c_source.html#l00182">ParseCommandLineArgs()</a>.</p>
 
 </div>
 </div>
@@ -271,11 +279,11 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="myfind_8c_source.html#l00359">359</a> of file <a class="el" href="myfind_8c_source.html">myfind.c</a>.</p>
+<p>Definition at line <a class="el" href="myfind_8c_source.html#l00644">644</a> of file <a class="el" href="myfind_8c_source.html">myfind.c</a>.</p>
 
-<p>References <a class="el" href="myfind_8c_source.html#l00033">FileNode::fileName</a>, and <a class="el" href="myfind_8c_source.html#l00036">FileNode::next</a>.</p>
+<p>References <a class="el" href="myfind_8c_source.html#l00087">FileNode::fileName</a>, and <a class="el" href="myfind_8c_source.html#l00090">FileNode::next</a>.</p>
 
-<p>Referenced by <a class="el" href="myfind_8c_source.html#l00101">do_dir()</a>.</p>
+<p>Referenced by <a class="el" href="myfind_8c_source.html#l00437">SearchDirectory()</a>.</p>
 
 </div>
 </div>
@@ -306,49 +314,142 @@ Here is the call graph for this function:</div>
 <p>The entry point of the application. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>argc</em>&nbsp;</td><td>The number of command line arguments in argv. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>argv</em>&nbsp;</td><td>The array of command line arguments. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>argc</em>&nbsp;</td><td>The number of command line arguments in <code>argv</code>. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>argv</em>&nbsp;</td><td>The array of command line arguments. The last element of the array is NULL. </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>Zero if execution was successful. -1 if an unrecoverable error occurred during execution. </dd></dl>
 
-<p>Definition at line <a class="el" href="myfind_8c_source.html#l00056">56</a> of file <a class="el" href="myfind_8c_source.html">myfind.c</a>.</p>
+<p>Definition at line <a class="el" href="myfind_8c_source.html#l00119">119</a> of file <a class="el" href="myfind_8c_source.html">myfind.c</a>.</p>
 
-<p>References <a class="el" href="myfind_8c_source.html#l00074">do_file()</a>.</p>
+<p>References <a class="el" href="myfind_8c_source.html#l00182">ParseCommandLineArgs()</a>, <a class="el" href="myfind_8c_source.html#l00154">PrintUsage()</a>, <a class="el" href="myfind_8c_source.html#l00401">SearchFile()</a>, and <a class="el" href="myfind_8c_source.html#l00054">Args::searchPath</a>.</p>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dynsection">
 <div class="center"><img src="myfind_8c_a0ddf1224851353fc92bfbff6f499fa97_cgraph.png" border="0" usemap="#myfind_8c_a0ddf1224851353fc92bfbff6f499fa97_cgraph_map" alt=""></div>
 <map name="myfind_8c_a0ddf1224851353fc92bfbff6f499fa97_cgraph_map" id="myfind_8c_a0ddf1224851353fc92bfbff6f499fa97_cgraph">
-<area shape="rect" id="node3" href="myfind_8c.html#aade37ec9282827513333c8cfa97e274e" title="do_file" alt="" coords="105,59,164,88"/><area shape="rect" id="node5" href="myfind_8c.html#a4f1024f98855ee28b277bb4cae2b6497" title="do_dir" alt="" coords="253,59,309,88"/><area shape="rect" id="node14" href="myfind_8c.html#a2b36587cf3a823b02fd4ee0cee1f8ff3" title="PrintFileInformation" alt="" coords="215,112,348,141"/><area shape="rect" id="node7" href="myfind_8c.html#ac5369c14077eac1063584e19b28eed5e" title="AddListNode" alt="" coords="400,5,496,35"/><area shape="rect" id="node9" href="myfind_8c.html#ae0d97f0f68eee67d41a0fe23235f094e" title="CombinePath" alt="" coords="397,59,499,88"/><area shape="rect" id="node12" href="myfind_8c.html#ac92ffb839309efa55f28cb9005f0c28e" title="FreeList" alt="" coords="413,112,483,141"/></map>
+<area shape="rect" id="node3" href="myfind_8c.html#a0b4d0c8e58784f7ebc5d043bc7bf73c3" title="ParseCommandLineArgs" alt="" coords="105,72,271,101"/><area shape="rect" id="node11" href="myfind_8c.html#a64d28f49232d9fada3edd46309ab6830" title="Prints an explanation of the application&#39;s command line arguments." alt="" coords="145,139,231,168"/><area shape="rect" id="node13" href="myfind_8c.html#a162ee12cbbf9ba3d9c704ab855bf31cb" title="SearchFile" alt="" coords="147,219,229,248"/><area shape="rect" id="node5" href="myfind_8c.html#ac179ca7870de8d400956983e2c1d561f" title="ConvertToInteger" alt="" coords="347,5,469,35"/><area shape="rect" id="node7" href="myfind_8c.html#abfc043dec2db7c13ef52d90189785e71" title="ParseFileTypes" alt="" coords="352,59,464,88"/><area shape="rect" id="node9" href="myfind_8c.html#a139abea48bdd3c9c6fe63123c94385c8" title="QueryUserID" alt="" coords="359,112,457,141"/><area shape="rect" id="node15" href="myfind_8c.html#abbd097912373f8e24879f541f3a0d395" title="PrintFileInformation" alt="" coords="341,165,475,195"/><area shape="rect" id="node17" href="myfind_8c.html#a7719e6aef2cae1850093bd6202c75f3f" title="SearchDirectory" alt="" coords="351,219,465,248"/><area shape="rect" id="node26" href="myfind_8c.html#a99d91e9ba9de271d7a95daf695d46544" title="ShouldPrintFileInformation" alt="" coords="321,272,495,301"/><area shape="rect" id="node19" href="myfind_8c.html#ac5369c14077eac1063584e19b28eed5e" title="AddListNode" alt="" coords="547,165,643,195"/><area shape="rect" id="node21" href="myfind_8c.html#a437b3d5c7eefce78114dd13d95ffcc67" title="CombinePath" alt="" coords="544,219,645,248"/><area shape="rect" id="node23" href="myfind_8c.html#ac92ffb839309efa55f28cb9005f0c28e" title="FreeList" alt="" coords="560,272,629,301"/></map>
 </div>
 </p>
 
 </div>
 </div>
-<a class="anchor" id="a2b36587cf3a823b02fd4ee0cee1f8ff3"></a><!-- doxytag: member="myfind.c::PrintFileInformation" ref="a2b36587cf3a823b02fd4ee0cee1f8ff3" args="(const char *filePath, const struct stat *fileInformation, const char *const parms[])" -->
+<a class="anchor" id="a0b4d0c8e58784f7ebc5d043bc7bf73c3"></a><!-- doxytag: member="myfind.c::ParseCommandLineArgs" ref="a0b4d0c8e58784f7ebc5d043bc7bf73c3" args="(char *argv[], struct Args *args)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ParseCommandLineArgs </td>
+          <td>(</td>
+          <td class="paramtype">char *&nbsp;</td>
+          <td class="paramname"> <em>argv</em>[], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct <a class="el" href="structArgs.html">Args</a> *&nbsp;</td>
+          <td class="paramname"> <em>args</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Parses and validates the application's command line arguments. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>argv</em>&nbsp;</td><td>The array of command line arguments. The last element in the array must be NULL. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>args</em>&nbsp;</td><td>A pointer to the struct of processed command line arguments within which to store the parsed information. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>true if all command line arguments could be parsed successfully. Otherwise, false. </dd></dl>
+
+<p>Definition at line <a class="el" href="myfind_8c_source.html#l00182">182</a> of file <a class="el" href="myfind_8c_source.html">myfind.c</a>.</p>
+
+<p>References <a class="el" href="myfind_8c_source.html#l00383">ConvertToInteger()</a>, <a class="el" href="myfind_8c_source.html#l00062">Args::fileTypes</a>, <a class="el" href="myfind_8c_source.html#l00060">Args::filterByFileType</a>, <a class="el" href="myfind_8c_source.html#l00065">Args::filterByUserID</a>, <a class="el" href="myfind_8c_source.html#l00073">Args::filterForNamePattern</a>, <a class="el" href="myfind_8c_source.html#l00070">Args::filterForNoUser</a>, <a class="el" href="myfind_8c_source.html#l00078">Args::filterForPathPattern</a>, <a class="el" href="myfind_8c_source.html#l00075">Args::namePattern</a>, <a class="el" href="myfind_8c_source.html#l00326">ParseFileTypes()</a>, <a class="el" href="myfind_8c_source.html#l00080">Args::pathPattern</a>, <a class="el" href="myfind_8c_source.html#l00057">Args::printInExtendedFormat</a>, <a class="el" href="myfind_8c_source.html#l00392">QueryUserID()</a>, <a class="el" href="myfind_8c_source.html#l00054">Args::searchPath</a>, and <a class="el" href="myfind_8c_source.html#l00067">Args::userID</a>.</p>
+
+<p>Referenced by <a class="el" href="myfind_8c_source.html#l00119">main()</a>.</p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dynsection">
+<div class="center"><img src="myfind_8c_a0b4d0c8e58784f7ebc5d043bc7bf73c3_cgraph.png" border="0" usemap="#myfind_8c_a0b4d0c8e58784f7ebc5d043bc7bf73c3_cgraph_map" alt=""></div>
+<map name="myfind_8c_a0b4d0c8e58784f7ebc5d043bc7bf73c3_cgraph_map" id="myfind_8c_a0b4d0c8e58784f7ebc5d043bc7bf73c3_cgraph">
+<area shape="rect" id="node3" href="myfind_8c.html#ac179ca7870de8d400956983e2c1d561f" title="ConvertToInteger" alt="" coords="221,5,344,35"/><area shape="rect" id="node5" href="myfind_8c.html#abfc043dec2db7c13ef52d90189785e71" title="ParseFileTypes" alt="" coords="227,59,339,88"/><area shape="rect" id="node7" href="myfind_8c.html#a139abea48bdd3c9c6fe63123c94385c8" title="QueryUserID" alt="" coords="233,112,332,141"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="abfc043dec2db7c13ef52d90189785e71"></a><!-- doxytag: member="myfind.c::ParseFileTypes" ref="abfc043dec2db7c13ef52d90189785e71" args="(char *fileTypeChars, enum FileTypes *fileTypes)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ParseFileTypes </td>
+          <td>(</td>
+          <td class="paramtype">char *&nbsp;</td>
+          <td class="paramname"> <em>fileTypeChars</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">enum <a class="el" href="myfind_8c.html#a9f19b10fbbb0e568c31ed76e6e010d2a">FileTypes</a> *&nbsp;</td>
+          <td class="paramname"> <em>fileTypes</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Parses the string that specifies the file types to be printed. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>fileTypeChars</em>&nbsp;</td><td>The array of characters representing the file types to be printed. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>fileTypes</em>&nbsp;</td><td>A pointer to the enumeration value in which to store the parsed information. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>true if all file type characters could be parsed successfully. Otherwise, false. </dd></dl>
+
+<p>Definition at line <a class="el" href="myfind_8c_source.html#l00326">326</a> of file <a class="el" href="myfind_8c_source.html">myfind.c</a>.</p>
+
+<p>References <a class="el" href="myfind_8c_source.html#l00035">BlockSpecialFile</a>, <a class="el" href="myfind_8c_source.html#l00037">CharacterSpecialFile</a>, <a class="el" href="myfind_8c_source.html#l00039">Directory</a>, <a class="el" href="myfind_8c_source.html#l00041">NamedPipe</a>, <a class="el" href="myfind_8c_source.html#l00032">None</a>, <a class="el" href="myfind_8c_source.html#l00043">RegularFile</a>, <a class="el" href="myfind_8c_source.html#l00047">Socket</a>, and <a class="el" href="myfind_8c_source.html#l00045">SymbolicLink</a>.</p>
+
+<p>Referenced by <a class="el" href="myfind_8c_source.html#l00182">ParseCommandLineArgs()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="abbd097912373f8e24879f541f3a0d395"></a><!-- doxytag: member="myfind.c::PrintFileInformation" ref="abbd097912373f8e24879f541f3a0d395" args="(char *filePath, struct stat *fileInformation, struct Args *args)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">void PrintFileInformation </td>
           <td>(</td>
-          <td class="paramtype">const char *&nbsp;</td>
+          <td class="paramtype">char *&nbsp;</td>
           <td class="paramname"> <em>filePath</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const struct stat *&nbsp;</td>
+          <td class="paramtype">struct stat *&nbsp;</td>
           <td class="paramname"> <em>fileInformation</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const char *const &nbsp;</td>
-          <td class="paramname"> <em>parms</em>[]</td><td>&nbsp;</td>
+          <td class="paramtype">struct <a class="el" href="structArgs.html">Args</a> *&nbsp;</td>
+          <td class="paramname"> <em>args</em></td><td>&nbsp;</td>
         </tr>
         <tr>
           <td></td>
@@ -361,21 +462,233 @@ Here is the call graph for this function:</div>
 <p>Prints the information of a single file or directory. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>filePath</em>&nbsp;</td><td>The path of the file to print. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>filePath</em>&nbsp;</td><td>The path of the file to be printed. </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>fileInformation</em>&nbsp;</td><td>The information of the file as returned by stat(). </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>parms</em>&nbsp;</td><td>The array of command line arguments representing the actions used for printing the information of each file or directory entry. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>args</em>&nbsp;</td><td>The command line options that specify the format in which to print the file's information. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>The created file node. </dd></dl>
+
+<p>Definition at line <a class="el" href="myfind_8c_source.html#l00725">725</a> of file <a class="el" href="myfind_8c_source.html">myfind.c</a>.</p>
+
+<p>References <a class="el" href="myfind_8c_source.html#l00057">Args::printInExtendedFormat</a>.</p>
+
+<p>Referenced by <a class="el" href="myfind_8c_source.html#l00401">SearchFile()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a64d28f49232d9fada3edd46309ab6830"></a><!-- doxytag: member="myfind.c::PrintUsage" ref="a64d28f49232d9fada3edd46309ab6830" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PrintUsage </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="myfind_8c_source.html#l00154">154</a> of file <a class="el" href="myfind_8c_source.html">myfind.c</a>.</p>
+
+<p>Referenced by <a class="el" href="myfind_8c_source.html#l00119">main()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a139abea48bdd3c9c6fe63123c94385c8"></a><!-- doxytag: member="myfind.c::QueryUserID" ref="a139abea48bdd3c9c6fe63123c94385c8" args="(char *userName, int *userID)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool QueryUserID </td>
+          <td>(</td>
+          <td class="paramtype">char *&nbsp;</td>
+          <td class="paramname"> <em>userName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&nbsp;</td>
+          <td class="paramname"> <em>userID</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Queries the user ID of the user with the specified name. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>userName</em>&nbsp;</td><td>The name of the user for which to get the ID. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>userID</em>&nbsp;</td><td>A pointer to the integer value in which to store the queries user ID. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>true if the user ID could be queried successfully. Otherwise, false. </dd></dl>
+
+<p>Definition at line <a class="el" href="myfind_8c_source.html#l00392">392</a> of file <a class="el" href="myfind_8c_source.html">myfind.c</a>.</p>
+
+<p>Referenced by <a class="el" href="myfind_8c_source.html#l00182">ParseCommandLineArgs()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a7719e6aef2cae1850093bd6202c75f3f"></a><!-- doxytag: member="myfind.c::SearchDirectory" ref="a7719e6aef2cae1850093bd6202c75f3f" args="(char *dir_name, struct Args *args)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SearchDirectory </td>
+          <td>(</td>
+          <td class="paramtype">char *&nbsp;</td>
+          <td class="paramname"> <em>directoryPath</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct <a class="el" href="structArgs.html">Args</a> *&nbsp;</td>
+          <td class="paramname"> <em>args</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Enumerates the files and directories below the specified directory path and prints the information of each entry according to the actions specified in <code>args</code>. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>directoryPath</em>&nbsp;</td><td>The path of the directory to process. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>args</em>&nbsp;</td><td>The command line options representing the actions to use for printing the information of each file or directory entry. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="myfind_8c_source.html#l00278">278</a> of file <a class="el" href="myfind_8c_source.html">myfind.c</a>.</p>
+<p>Definition at line <a class="el" href="myfind_8c_source.html#l00437">437</a> of file <a class="el" href="myfind_8c_source.html">myfind.c</a>.</p>
 
-<p>Referenced by <a class="el" href="myfind_8c_source.html#l00074">do_file()</a>.</p>
+<p>References <a class="el" href="myfind_8c_source.html#l00602">AddListNode()</a>, <a class="el" href="myfind_8c_source.html#l00535">CombinePath()</a>, <a class="el" href="myfind_8c_source.html#l00087">FileNode::fileName</a>, <a class="el" href="myfind_8c_source.html#l00644">FreeList()</a>, <a class="el" href="myfind_8c_source.html#l00090">FileNode::next</a>, and <a class="el" href="myfind_8c_source.html#l00401">SearchFile()</a>.</p>
+
+<p>Referenced by <a class="el" href="myfind_8c_source.html#l00401">SearchFile()</a>.</p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dynsection">
+<div class="center"><img src="myfind_8c_a7719e6aef2cae1850093bd6202c75f3f_cgraph.png" border="0" usemap="#myfind_8c_a7719e6aef2cae1850093bd6202c75f3f_cgraph_map" alt=""></div>
+<map name="myfind_8c_a7719e6aef2cae1850093bd6202c75f3f_cgraph_map" id="myfind_8c_a7719e6aef2cae1850093bd6202c75f3f_cgraph">
+<area shape="rect" id="node3" href="myfind_8c.html#ac5369c14077eac1063584e19b28eed5e" title="AddListNode" alt="" coords="173,5,269,35"/><area shape="rect" id="node5" href="myfind_8c.html#a437b3d5c7eefce78114dd13d95ffcc67" title="CombinePath" alt="" coords="171,59,272,88"/><area shape="rect" id="node7" href="myfind_8c.html#ac92ffb839309efa55f28cb9005f0c28e" title="FreeList" alt="" coords="187,112,256,141"/><area shape="rect" id="node9" href="myfind_8c.html#a162ee12cbbf9ba3d9c704ab855bf31cb" title="SearchFile" alt="" coords="180,165,263,195"/><area shape="rect" id="node11" href="myfind_8c.html#abbd097912373f8e24879f541f3a0d395" title="PrintFileInformation" alt="" coords="341,139,475,168"/><area shape="rect" id="node14" href="myfind_8c.html#a99d91e9ba9de271d7a95daf695d46544" title="ShouldPrintFileInformation" alt="" coords="321,192,495,221"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a162ee12cbbf9ba3d9c704ab855bf31cb"></a><!-- doxytag: member="myfind.c::SearchFile" ref="a162ee12cbbf9ba3d9c704ab855bf31cb" args="(char *file_name, struct Args *args)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SearchFile </td>
+          <td>(</td>
+          <td class="paramtype">char *&nbsp;</td>
+          <td class="paramname"> <em>filePath</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct <a class="el" href="structArgs.html">Args</a> *&nbsp;</td>
+          <td class="paramname"> <em>args</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Recursively walks through all the files and directories below the specified path and prints the information of each entry according to the actions specified in <code>args</code>. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>filePath</em>&nbsp;</td><td>The path of the file or directory to process. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>args</em>&nbsp;</td><td>The command line options representing the actions to use for printing the information of each file or directory entry. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="myfind_8c_source.html#l00401">401</a> of file <a class="el" href="myfind_8c_source.html">myfind.c</a>.</p>
+
+<p>References <a class="el" href="myfind_8c_source.html#l00725">PrintFileInformation()</a>, <a class="el" href="myfind_8c_source.html#l00437">SearchDirectory()</a>, and <a class="el" href="myfind_8c_source.html#l00669">ShouldPrintFileInformation()</a>.</p>
+
+<p>Referenced by <a class="el" href="myfind_8c_source.html#l00119">main()</a>, and <a class="el" href="myfind_8c_source.html#l00437">SearchDirectory()</a>.</p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dynsection">
+<div class="center"><img src="myfind_8c_a162ee12cbbf9ba3d9c704ab855bf31cb_cgraph.png" border="0" usemap="#myfind_8c_a162ee12cbbf9ba3d9c704ab855bf31cb_cgraph_map" alt=""></div>
+<map name="myfind_8c_a162ee12cbbf9ba3d9c704ab855bf31cb_cgraph_map" id="myfind_8c_a162ee12cbbf9ba3d9c704ab855bf31cb_cgraph">
+<area shape="rect" id="node3" href="myfind_8c.html#abbd097912373f8e24879f541f3a0d395" title="PrintFileInformation" alt="" coords="160,5,293,35"/><area shape="rect" id="node5" href="myfind_8c.html#a7719e6aef2cae1850093bd6202c75f3f" title="SearchDirectory" alt="" coords="169,59,284,88"/><area shape="rect" id="node14" href="myfind_8c.html#a99d91e9ba9de271d7a95daf695d46544" title="ShouldPrintFileInformation" alt="" coords="140,112,313,141"/><area shape="rect" id="node7" href="myfind_8c.html#ac5369c14077eac1063584e19b28eed5e" title="AddListNode" alt="" coords="365,5,461,35"/><area shape="rect" id="node9" href="myfind_8c.html#a437b3d5c7eefce78114dd13d95ffcc67" title="CombinePath" alt="" coords="363,59,464,88"/><area shape="rect" id="node11" href="myfind_8c.html#ac92ffb839309efa55f28cb9005f0c28e" title="FreeList" alt="" coords="379,112,448,141"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a99d91e9ba9de271d7a95daf695d46544"></a><!-- doxytag: member="myfind.c::ShouldPrintFileInformation" ref="a99d91e9ba9de271d7a95daf695d46544" args="(char *filePath, struct stat *fileInformation, struct Args *args)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ShouldPrintFileInformation </td>
+          <td>(</td>
+          <td class="paramtype">char *&nbsp;</td>
+          <td class="paramname"> <em>filePath</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct stat *&nbsp;</td>
+          <td class="paramname"> <em>fileInformation</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct <a class="el" href="structArgs.html">Args</a> *&nbsp;</td>
+          <td class="paramname"> <em>args</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Determines whether the file with the provided path and information should be printed based on the application's command line arguments. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>filePath</em>&nbsp;</td><td>The path of the file to be printed. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>fileInformation</em>&nbsp;</td><td>The information of the file as returned by stat(). </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>args</em>&nbsp;</td><td>The command line options that specify the criteria by which to select the files to be printed. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="myfind_8c_source.html#l00669">669</a> of file <a class="el" href="myfind_8c_source.html">myfind.c</a>.</p>
+
+<p>References <a class="el" href="myfind_8c_source.html#l00035">BlockSpecialFile</a>, <a class="el" href="myfind_8c_source.html#l00037">CharacterSpecialFile</a>, <a class="el" href="myfind_8c_source.html#l00039">Directory</a>, <a class="el" href="myfind_8c_source.html#l00062">Args::fileTypes</a>, <a class="el" href="myfind_8c_source.html#l00060">Args::filterByFileType</a>, <a class="el" href="myfind_8c_source.html#l00065">Args::filterByUserID</a>, <a class="el" href="myfind_8c_source.html#l00073">Args::filterForNamePattern</a>, <a class="el" href="myfind_8c_source.html#l00070">Args::filterForNoUser</a>, <a class="el" href="myfind_8c_source.html#l00078">Args::filterForPathPattern</a>, <a class="el" href="myfind_8c_source.html#l00041">NamedPipe</a>, <a class="el" href="myfind_8c_source.html#l00043">RegularFile</a>, <a class="el" href="myfind_8c_source.html#l00047">Socket</a>, and <a class="el" href="myfind_8c_source.html#l00045">SymbolicLink</a>.</p>
+
+<p>Referenced by <a class="el" href="myfind_8c_source.html#l00401">SearchFile()</a>.</p>
 
 </div>
 </div>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on 19 Mar 2018 for myfind by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on 31 Mar 2018 for myfind by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

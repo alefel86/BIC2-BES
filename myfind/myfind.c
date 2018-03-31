@@ -25,25 +25,25 @@
 
 
 
-/// Contains flags indicating the file types to be filtered for.
+/// Contains flags indicating the file types to be printed in the application's output.
 enum FileTypes
 {
 	/// No filtering by file type.
 	None = 0,
 
-	/// Only block special files should be included.
+	/// Block special files should be printed.
 	BlockSpecialFile = 1 << 0,
-	/// Only character special files should be included.
+	/// Character special files should be printed.
 	CharacterSpecialFile = 1 << 1,
-	/// Only directories should be included.
+	/// Directories should be printed.
 	Directory = 1 << 2,
-	/// Only named pipes should be included.
+	/// Named pipes should be printed.
 	NamedPipe = 1 << 3,
-	/// Only regular files should be included.
+	/// Regular files should be printed.
 	RegularFile = 1 << 4,
-	/// Only symbolic links should be included.
+	/// Symbolic links should be printed.
 	SymbolicLink = 1 << 5,
-	/// Only sockets should be included.
+	/// Sockets should be printed.
 	Socket = 1 << 6,
 };
 
@@ -714,7 +714,7 @@ bool ShouldPrintFileInformation(char* filePath, struct stat* fileInformation, st
 		return true;
 	}
 
-	return false;
+	return true;
 }
 
 /// Prints the information of a single file or directory.
