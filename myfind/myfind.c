@@ -691,9 +691,7 @@ bool ShouldPrintFileInformation(char* filePath, struct stat* fileInformation, st
 	}
 	else if (args->filterByUserID)
 	{
-		// TODO
-		return false;
-		return true;
+		return (fileInformation->st_uid == args->userID);
 	}
 	else if (args->filterForNoUser)
 	{
