@@ -13,11 +13,11 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
-
+#include <fnmatch.h>
 #include <errno.h>
-
+#include <libgen.h>
 #include <pwd.h>
-
+#include <grp.h>
 #include <assert.h>
 #include <dirent.h>
 #include <sys/types.h>
@@ -65,19 +65,31 @@ struct Args
 
 	/// Indicates whether only files belonging to a user with the ID specified in \p userID should be printed. This member has precedence over \p filterUserName and \p filterForNoUser.
 	bool filterByUserID;
+
 	/// Only files belonging to a user with this ID will be printed. This member is only valid if \p filterByUserID is true.
 	int userID;
 
 	/// Indicates whether only files not belonging to any user should be printed.
 	bool filterForNoUser;
 
+	/// Indicates whether only files belonging to a group with the ID specified in \p groupID should be printed. This member has precedence over \p filterGroupName and \p filterForNoGroup.
+	bool filterByGroupID;
+
+	/// Only files belonging to a group with this ID will be printed. This member is only valid if \p filterBygroupID is true.
+	int groupID;
+
+	/// Indicates whether only files not belonging to any group should be printed.
+	bool filterForNoGroup;
+
 	/// Indicates whether only files with names that match the pattern specified in \p namePattern should be printed.
 	bool filterForNamePattern;
+
 	/// Only files whose name matches this pattern will be printed. This member is only valid if \p filterForNamePattern is true.
 	char* namePattern;
 
 	/// Indicates whether only files where the whole path matches the pattern specified in \p pathPattern should be printed.
 	bool filterForPathPattern;
+
 	/// Only files where the whole path matches this pattern will be printed. This member is only valid if \p filterForPathPattern is true.
 	char* pathPattern;
 };
@@ -96,7 +108,9 @@ void PrintUsage();
 
 bool ParseCommandLineArgs(char* argv[], struct Args *args);
 bool ConvertToInteger(char* s, int* i);
+bool ConvertToIntegerGroup(char* s, int* i);
 bool QueryUserID(char* userName, int* userID);
+bool QueryGroupID(char* groupName, int* groupID);
 bool ParseFileTypes(char* fileTypeChars, enum FileTypes* fileTypes);
 
 void SearchFile(char* file_name, struct Args* args);
@@ -246,7 +260,7 @@ bool ParseCommandLineArgs(char* argv[], struct Args *args)
 			}
 			else
 			{
-				fprintf(stderr, "myfind: `%s` is not the name of a known user \n", userNameOrID);
+				fprintf(stderr, "Argument error: \"%s\" is not the name of a known user\n", userNameOrID);
 
 				return false;
 			}
@@ -261,6 +275,44 @@ bool ParseCommandLineArgs(char* argv[], struct Args *args)
 		{
 			// Simply set the flag
 			args->filterForNoUser = true;
+		}
+		else if (strcmp(argv[i], "-group") == 0)
+		{
+			// Make sure that this argument is followed by another one
+			char* groupNameOrID = argv[i + 1];
+
+			if (groupNameOrID == NULL)
+			{
+				fprintf(stderr, "Argument error: \"-group\" must be followed by the name or ID of a group.\n");
+
+				return false;
+			}
+
+			if (ConvertToIntegerGroup(groupNameOrID, &args->groupID))
+			{
+				// The group was specified by their numeric group ID; Nothing more to do
+			}
+			else if (QueryGroupID(groupNameOrID, &args->groupID))
+			{
+				// The group was specified by their group name for which the corresponding ID could be queried successfully; Nothing more to do
+			}
+			else
+			{
+				fprintf(stderr, "Argument error: \"%s\" is not the name of a known group\n", groupNameOrID);
+
+				return false;
+			}
+
+			// Indicate that we want to filter for the determined user ID
+			args->filterByGroupID = true;
+
+			// Skip the group name/ID argument 
+			i++;
+		}
+		else if (strcmp(argv[i], "-nogroup") == 0)
+		{
+			// Simply set the flag
+			args->filterForNoGroup = true;
 		}
 		else if (strcmp(argv[i], "-name") == 0)
 		{
@@ -390,7 +442,6 @@ bool ConvertToInteger(char* s, int* i)
 	
 	if (pw != NULL) 
 	{
-		//printf("fall1");
 		return false;
 	}
 	else if (uid = strtol(s, &s, 10))
@@ -400,22 +451,57 @@ bool ConvertToInteger(char* s, int* i)
 		if (p != NULL) 
 		{
 			*i = p->pw_uid;
-			//printf("fall2");
 			return true;
 		}
 		
 		else
 		{
-			//printf("fall3");
 			return false;
 		}
 	}
 	else
 	{
-		//printf("fall4");
 		return false;
 	}
 		
+}
+
+/// Converts the provided string to an integer.
+/// \param s The string to convert to an integer.
+/// \param i A pointer to the integer value in which to store the converted string.
+/// \return true if the string could successfully be converted to an integer value. Otherwise, false.
+bool ConvertToIntegerGroup(char* s, int* i)
+{
+	struct group *g;
+	struct group *gw;
+	unsigned int gid;
+
+	gw = getgrnam(s);
+
+	if (gw != NULL)
+	{
+		return false;
+	}
+	else if (gid = strtol(s, &s, 10))
+	{
+		g = getgrgid(gid);
+
+		if (g != NULL)
+		{
+			*i = g->gr_gid;
+			return true;
+		}
+
+		else
+		{
+			return false;
+		}
+	}
+	else
+	{
+		return false;
+	}
+
 }
 
 /// Queries the user ID of the user with the specified name.
@@ -430,13 +516,32 @@ bool QueryUserID(char* userName, int* userID)
 	if (p != NULL)
 	{
 		*userID = p->pw_uid;
-		//printf("fall5");
 		return true;
 	}
 	
 	else
 	{
-		//printf("fall6");
+		return false;
+	}
+
+}
+/// Queries the group ID of the group with the specified name.
+/// \param groupName The name of the group for which to get the ID.
+/// \param gruopID A pointer to the integer value in which to store the queries group ID.
+/// \return true if the group ID could be queried successfully. Otherwise, false.
+bool QueryGroupID(char* groupName, int* groupID)
+{
+	struct group *g;
+	g = getgrnam(groupName);
+
+	if (g != NULL)
+	{
+		*groupID = g->gr_gid;
+		return true;
+	}
+
+	else
+	{
 		return false;
 	}
 
@@ -463,8 +568,7 @@ void SearchFile(char* filePath, struct Args* args)
 
 		return;
 	}
-
-
+	
 	// Check if the file should be ignored based on the command line arguments
 	if (ShouldPrintFileInformation(filePath, &fileInfo, args))
 	{
@@ -757,17 +861,40 @@ bool ShouldPrintFileInformation(char* filePath, struct stat* fileInformation, st
 			return false;
 						
 	}
+	else if (args->filterByGroupID)
+	{
+		if ((unsigned int)fileInformation->st_gid == (unsigned int)args->groupID)
+		{
+			return true;
+		}
+		else return false;
+	}
+	else if (args->filterForNoGroup)
+	{
+		struct group *g;
+		g = (getgrgid(fileInformation->st_gid));
+
+		if (g == NULL)
+		{
+			return true;
+		}
+		return false;
+
+	}
 	else if (args->filterForNamePattern)
 	{
-		// TODO
-		return false;
-		return true;
+		char* f = basename(filePath);
+		if (fnmatch(args->namePattern, f, 0) != 0)
+		{
+			return true;
+		}
+		else return false;
 	}
 	else if (args->filterForPathPattern)
 	{
-		// TODO
-		return false;
 		return true;
+		
+		return false;
 	}
 
 	return true;
