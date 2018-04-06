@@ -13,7 +13,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
-#include <ctype.h>
+
 #include <errno.h>
 
 #include <pwd.h>
@@ -92,8 +92,6 @@ struct FileNode
 	struct FileNode* next;
 };
 
-struct passwd *getpwnam();
-
 void PrintUsage();
 
 bool ParseCommandLineArgs(char* argv[], struct Args *args);
@@ -131,7 +129,7 @@ int main(int argc, char* argv[])
 	// Parse and validate the command line arguments
 	if (!ParseCommandLineArgs(argv, args))
 	{
-		PrintUsage();
+		//PrintUsage();
 
 		free(args);
 
@@ -248,7 +246,7 @@ bool ParseCommandLineArgs(char* argv[], struct Args *args)
 			}
 			else
 			{
-				fprintf(stderr, "Argument error: The user ID for user name \"%s\" could not be retrieved.\n", userNameOrID);
+				fprintf(stderr, "myfind: `%s` is not the name of a known user \n", userNameOrID);
 
 				return false;
 			}
@@ -392,6 +390,7 @@ bool ConvertToInteger(char* s, int* i)
 	
 	if (pw != NULL) 
 	{
+		//printf("fall1");
 		return false;
 	}
 	else if (uid = strtol(s, &s, 10))
@@ -401,12 +400,21 @@ bool ConvertToInteger(char* s, int* i)
 		if (p != NULL) 
 		{
 			*i = p->pw_uid;
+			//printf("fall2");
 			return true;
 		}
 		
-		else return false;
+		else
+		{
+			//printf("fall3");
+			return false;
+		}
 	}
-	return false;
+	else
+	{
+		//printf("fall4");
+		return false;
+	}
 		
 }
 
@@ -422,11 +430,15 @@ bool QueryUserID(char* userName, int* userID)
 	if (p != NULL)
 	{
 		*userID = p->pw_uid;
-		
+		//printf("fall5");
 		return true;
 	}
-			
-	else return false;		
+	
+	else
+	{
+		//printf("fall6");
+		return false;
+	}
 
 }
 
@@ -727,27 +739,23 @@ bool ShouldPrintFileInformation(char* filePath, struct stat* fileInformation, st
 	}
 	else if (args->filterByUserID)
 	{
-		//printf("Ausgabefilter-on\n");
-		//printf("fileInfo: %d\n", fileInformation->st_uid);
-		//printf("userid: %d\n", args->userID);
-
 		if ((unsigned int) fileInformation->st_uid == (unsigned int) args->userID)
 		{
-			
-
 			return true;
 		}
 		else return false;
 	}
 	else if (args->filterForNoUser)
 	{
-		//struct passwd *p;
-		//if ((fileInformation->st_uid) != (getpwuid(;
-			return true;
-			//}
+		struct passwd *p;
+		p = (getpwuid(fileInformation->st_uid));
+
+			if (p == NULL)
+			{
+				return true;
+			}
 			return false;
-		//}
-				
+						
 	}
 	else if (args->filterForNamePattern)
 	{
