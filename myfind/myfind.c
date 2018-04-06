@@ -220,14 +220,14 @@ bool ParseCommandLineArgs(char* argv[], struct Args *args)
 
 			if (fileTypes == NULL)
 			{
-				fprintf(stderr, "Argument error: \"-type\" must be followed by one or more concatenated file type characters.\n");
+				fprintf(stderr, "myfind: \"-type\" must be followed by one or more concatenated file type characters.\n");
 
 				return false;
 			}
 
 			if (!ParseFileTypes(fileTypes, &args->fileTypes))
 			{
-				fprintf(stderr, "Argument error: The specified file types \"%s\" are invalid.\n", fileTypes);
+				fprintf(stderr, "myfind: The specified file types \"%s\" are invalid.\n", fileTypes);
 
 				return false;
 			}
@@ -245,7 +245,7 @@ bool ParseCommandLineArgs(char* argv[], struct Args *args)
 
 			if (userNameOrID == NULL)
 			{
-				fprintf(stderr, "Argument error: \"-user\" must be followed by the name or ID of a user.\n");
+				fprintf(stderr, "myfind: \"-user\" must be followed by the name or ID of a user.\n");
 
 				return false;
 			}
@@ -260,7 +260,7 @@ bool ParseCommandLineArgs(char* argv[], struct Args *args)
 			}
 			else
 			{
-				fprintf(stderr, "Argument error: \"%s\" is not the name of a known user\n", userNameOrID);
+				fprintf(stderr, "myfind: \"%s\" is not the name of a known user\n", userNameOrID);
 
 				return false;
 			}
@@ -283,7 +283,7 @@ bool ParseCommandLineArgs(char* argv[], struct Args *args)
 
 			if (groupNameOrID == NULL)
 			{
-				fprintf(stderr, "Argument error: \"-group\" must be followed by the name or ID of a group.\n");
+				fprintf(stderr, "myfind: \"-group\" must be followed by the name or ID of a group.\n");
 
 				return false;
 			}
@@ -298,7 +298,7 @@ bool ParseCommandLineArgs(char* argv[], struct Args *args)
 			}
 			else
 			{
-				fprintf(stderr, "Argument error: \"%s\" is not the name of a known group\n", groupNameOrID);
+				fprintf(stderr, "myfind: \"%s\" is not the name of a known group\n", groupNameOrID);
 
 				return false;
 			}
@@ -321,7 +321,7 @@ bool ParseCommandLineArgs(char* argv[], struct Args *args)
 
 			if (namePattern == NULL)
 			{
-				fprintf(stderr, "Argument error: \"-name\" must be followed by a string representing the filter pattern to apply for the file name.\n");
+				fprintf(stderr, "myfind: \"-name\" must be followed by a string representing the filter pattern to apply for the file name.\n");
 
 				return false;
 			}
@@ -340,7 +340,7 @@ bool ParseCommandLineArgs(char* argv[], struct Args *args)
 
 			if (pathPattern == NULL)
 			{
-				fprintf(stderr, "Argument error - \"-path\" must be followed by a string representing the filter pattern to apply for the file path.\n");
+				fprintf(stderr, "myfind: \"-path\" must be followed by a string representing the filter pattern to apply for the file path.\n");
 
 				return false;
 			}
@@ -359,7 +359,7 @@ bool ParseCommandLineArgs(char* argv[], struct Args *args)
 		}
 		else
 		{
-			fprintf(stderr, "Argument error: Unknown argument %d, \"%s\".\n", i, argv[i]);
+			fprintf(stderr, "myfind: Unknown argument %d, \"%s\".\n", i, argv[i]);
 
 			return false;
 		}
